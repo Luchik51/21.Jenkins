@@ -1,13 +1,13 @@
 pipeline {
       environment {
-    registry = "kirill123433353463/python_app"
-    registryCredential = 'dockerhub'
+    registry = "luchik/homework"
+    registryCredential = 'Dockerhub'
   }
       agent any //{label 'master'}
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/KirillNichiporov/jenkins_docker.git'
+        git 'https://github.com/Luchik51/21.Jenkins.git'
       }
     }
 
