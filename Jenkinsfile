@@ -2,11 +2,10 @@ pipeline {
     agent  {
 		label 'master'
 	}
-    stages {
-        stage ("Checkout") {
+      stage ("Checkout") {
                checkout scm
         }
-        stage ("Lint dockerfile") {
+      stage ("Lint dockerfile") {
         agent {
             docker {
                 image 'hadolint/hadolint:latest-debian'
@@ -23,7 +22,7 @@ pipeline {
             }
         }
         }
-        stage('Building image') {
+      stage('Building image') {
         steps{
           script {
           //dockerImage = docker.build("$registry:$BUILD_NUMBER")
@@ -31,10 +30,9 @@ pipeline {
           }
         }
         }
-    stage('Test image') {
-      steps{
-        sh "docker run -i $registry:latest"
+      stage('Test image') {
+        steps{
+          sh "docker run -i $registry:latest"
+        }
       }
-    }
-    }
 }
