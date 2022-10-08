@@ -59,7 +59,7 @@ pipeline {
         sh 'chmod u+x ./kubectl'
         sh './kubectl apply -f jenk21.yaml --namespace=pre-prod'
         sleep 4
-        sh './kubectl get pods --namespace=pre=prod
+        sh './kubectl get pods --namespace=pre=prod'
         }
       }
     }
