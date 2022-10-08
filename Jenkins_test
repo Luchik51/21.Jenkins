@@ -64,7 +64,7 @@ pipeline {
     }
     stage('Deploy in prod') {
       steps{
-        script {
+        withKubeConfig([credentialsId: 'kubernetes_f']) {
           catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE'){
             def depl = true
             try{
@@ -76,10 +76,10 @@ pipeline {
             try{
               if(depl){
                 sh 'kubectl get namespace | grep -q "^prod " || kubectl create namespace prod'
-                sh "kubectl apply -f jenk21.yaml"
+                sh 'kubectl apply -f jenk21.yaml'
                 sleep 4
-                sh "kubectl get pods --namespace=prod"
-                sh "kubectl delete -f jenk21.yaml --namespace=pre-prod"
+                sh 'kubectl get pods --namespace=prod'
+                sh 'kubectl delete -f jenk21.yaml --namespace=pre-prod'
                 sh 'kubectl delete namespace pre-prod'
               }
             }
