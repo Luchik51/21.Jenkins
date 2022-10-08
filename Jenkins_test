@@ -55,11 +55,10 @@ pipeline {
     stage('Deploy in pre-prod') {
       steps{
         withKubeConfig([credentialsId: 'kubernetes_f']) {
-        sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
-        sh 'chmod u+x ./kubectl'
-        sh './kubectl apply -f jenk21.yaml --namespace=pre-prod'
+        sh 'kubectl create namespace pre-prod'
+        sh 'kubectl apply -f jenk21.yaml --namespace=pre-prod'
         sleep 4
-        sh './kubectl get pods --namespace=pre=prod'
+        sh 'kubectl get pods --namespace=pre=prod'
         }
       }
     }
