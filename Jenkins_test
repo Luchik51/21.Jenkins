@@ -75,10 +75,12 @@ pipeline {
             }
             try{
               if(depl){
+                sh 'kubectl create namespace prod'
                 sh "kubectl apply -f jenk21.yaml"
                 sleep 4
                 sh "kubectl get pods --namespace=prod"
                 sh "kubectl delete -f jenk21.yaml --namespace=pre-prod"
+                sh 'kubectl delete namespace pre-prod'
               }
             }
             catch(Exception err){
