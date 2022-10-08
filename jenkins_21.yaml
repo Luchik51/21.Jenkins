@@ -7,7 +7,7 @@ metadata:
     app: jenkins
 spec:
   ports:
-    - port: 9999
+    - port: 8090
   selector:
     app: jenkins21
 ---
@@ -33,5 +33,5 @@ spec:
         name: jenkins21
         env:
         ports:
-        - containerPort: 9999
+        - containerPort: 8090
           name: jenkins21

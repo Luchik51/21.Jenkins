@@ -1,10 +1,14 @@
-FROM debian:stretch-slim
+FROM alpine:latest
 
-RUN apt update
-RUN apt install -y samba nginx openssl git wget curl
+MAINTAINER Andrei_Luchanok
 
-RUN apt remove -y samba openssl git wget curl
-# everything but nginx
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
 
-RUN useradd -ms /bin/bash test
-USER test
+RUN mkdir ./app
+WORKDIR ./app
+COPY ./app/* .
+EXPOSE 8090
+CMD ["python3", "listener.py"]
